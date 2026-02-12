@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+
+  --color-primary: #0e2433;
+  --color-accent: #38eddb;
+  --color-secondary: #0e2433;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  --color-light: #f8fafc;
+  --color-dark: #0f172a;
+
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-strong: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+}
+
+@theme {
+  --color-primary: #0e2433;
+  --color-accent: #38eddb;
+  --color-secondary: #0e2433;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  --color-light: #f8fafc;
+  --color-dark: #0f172a;
+
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-strong: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+}
+
+.example {
+  --color-primary: #0e2433;
+  --color-accent: #38eddb;
+  --color-secondary: #0e2433;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  --color-light: #f8fafc;
+  --color-dark: #0f172a;
+
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-strong: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+}
+
+body {
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}

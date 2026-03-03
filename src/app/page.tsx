@@ -2,27 +2,6 @@
 
 import { useState } from "react";
 
-/* ─── PALETTE ─── */
-const c = {
-  bg: "#1c1917", // very dark warm gray (stone-900)
-  bgAlt: "#231f1c", // slightly lighter warm dark
-  surface: "#292524", // stone-800
-  surfaceHover: "#33302d",
-  border: "#44403c", // stone-700
-  borderLight: "#57534e", // stone-600
-  text: "#e7e5e4", // stone-200
-  textMuted: "#a8a29e", // stone-400
-  textDim: "#78716c", // stone-500
-  accent: "#c4a882", // pastel brown / warm tan
-  accentLight: "#d4c4aa",
-  accentDim: "#a68c6a",
-  highlight: "#e8d5b7", // light pastel cream
-  codeGreen: "#a3be8c",
-  codeBlue: "#88c0d0",
-  codePurple: "#b48ead",
-  codeYellow: "#ebcb8b",
-};
-
 /* ─── DATA ─── */
 
 const useCases = [
@@ -62,48 +41,21 @@ const installSteps = [
   },
 ];
 
-/* ─── STYLES ─── */
-
-const keyframes = `
-  @keyframes pnex-fade-in {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pnex-pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(196, 168, 130, 0.1); }
-    50% { box-shadow: 0 0 40px rgba(196, 168, 130, 0.2); }
-  }
-  @keyframes pnex-cursor-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  @keyframes pnex-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  .pnex-fade-in {
-    animation: pnex-fade-in 0.6s ease-out both;
-  }
-  .pnex-fade-in-delay-1 {
-    animation: pnex-fade-in 0.6s ease-out 0.1s both;
-  }
-  .pnex-fade-in-delay-2 {
-    animation: pnex-fade-in 0.6s ease-out 0.2s both;
-  }
-  .pnex-fade-in-delay-3 {
-    animation: pnex-fade-in 0.6s ease-out 0.3s both;
-  }
-`;
-
 /* ─── ASCII ART ─── */
 
-const asciiArt = `
-██████╗ ███╗   ██╗███████╗██╗  ██╗
+const asciiArt = `██████╗ ███╗   ██╗███████╗██╗  ██╗
 ██╔══██╗████╗  ██║██╔════╝╚██╗██╔╝
 ██████╔╝██╔██╗ ██║█████╗   ╚███╔╝ 
 ██╔═══╝ ██║╚██╗██║██╔══╝   ██╔██╗ 
 ██║     ██║ ╚████║███████╗██╔╝ ██╗
-╚═╝     ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝`.trim();
+╚═╝     ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝`;
+
+const asciiArtMobile = `██████╗ ██╗  ██╗
+██╔══██╗╚██╗██╔╝
+██████╔╝ ╚███╔╝ 
+██╔═══╝  ██╔██╗ 
+██║     ██╔╝ ██╗
+╚═╝     ╚═╝  ╚═╝`;
 
 /* ─── COMPONENTS ─── */
 
@@ -115,132 +67,50 @@ function TerminalWindow({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      style={{
-        background: c.surface,
-        border: `1px solid ${c.border}`,
-        borderRadius: 12,
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "10px 16px",
-          borderBottom: `1px solid ${c.border}`,
-          background: c.bgAlt,
-        }}
-      >
-        <div style={{ display: "flex", gap: 6 }}>
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              background: "#ef4444",
-              opacity: 0.7,
-            }}
-          />
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              background: "#eab308",
-              opacity: 0.7,
-            }}
-          />
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              background: "#22c55e",
-              opacity: 0.7,
-            }}
-          />
+    <div className="overflow-hidden rounded-xl border border-pnex-border bg-pnex-surface">
+      <div className="flex items-center justify-between border-b border-pnex-border bg-pnex-bg-alt px-3 py-2.5 sm:px-4">
+        <div className="flex gap-1.5">
+          <span className="size-2.5 rounded-full bg-red-500/70" />
+          <span className="size-2.5 rounded-full bg-yellow-500/70" />
+          <span className="size-2.5 rounded-full bg-green-500/70" />
         </div>
-        <span
-          style={{
-            fontSize: 11,
-            fontFamily: "var(--font-geist-mono), monospace",
-            color: c.textDim,
-            letterSpacing: "0.05em",
-          }}
-        >
+        <span className="font-mono text-[10px] tracking-wider text-pnex-text-dim sm:text-[11px]">
           {title}
         </span>
-        <div style={{ width: 42 }} />
+        <div className="w-8 sm:w-10" />
       </div>
-      <div
-        style={{
-          padding: "20px 24px",
-          fontFamily: "var(--font-geist-mono), monospace",
-          fontSize: 13,
-          lineHeight: 1.8,
-        }}
-      >
+      <div className="p-3 font-mono text-xs leading-relaxed sm:p-5 sm:text-[13px] sm:leading-[1.8]">
         {children}
       </div>
     </div>
   );
 }
 
-function NavLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <a
-      href={href}
-      style={{
-        color: c.textMuted,
-        textDecoration: "none",
-        fontSize: 14,
-        fontWeight: 500,
-        transition: "color 0.2s",
-      }}
-      onMouseOver={(e) => (e.currentTarget.style.color = c.accent)}
-      onMouseOut={(e) => (e.currentTarget.style.color = c.textMuted)}
-    >
+    <span className="inline-flex items-center gap-2 rounded-full border border-pnex-border bg-pnex-accent/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-pnex-accent sm:px-4 sm:text-[11px]">
+      <span className="size-1.5 rounded-full bg-pnex-accent" />
       {children}
-    </a>
+    </span>
   );
 }
 
-function Badge({ children }: { children: React.ReactNode }) {
+function HamburgerIcon() {
   return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "6px 16px",
-        borderRadius: 9999,
-        border: `1px solid ${c.border}`,
-        background: `${c.accent}10`,
-        fontSize: 11,
-        fontWeight: 600,
-        color: c.accent,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-      }}
-    >
-      <span
-        style={{
-          width: 6,
-          height: 6,
-          borderRadius: "50%",
-          background: c.accent,
-        }}
-      />
-      {children}
-    </span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
   );
 }
 
@@ -249,6 +119,7 @@ function Badge({ children }: { children: React.ReactNode }) {
 export default function PnexPage() {
   const [activeUseCase, setActiveUseCase] = useState(0);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const copyToClipboard = (text: string, idx: number) => {
     navigator.clipboard.writeText(text);
@@ -257,293 +128,155 @@ export default function PnexPage() {
   };
 
   return (
-    <div
-      style={{
-        background: c.bg,
-        color: c.text,
-        minHeight: "100vh",
-        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-      }}
-    >
-      <style dangerouslySetInnerHTML={{ __html: keyframes }} />
+    <div className="min-h-screen bg-pnex-bg font-sans text-pnex-text">
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
       />
 
       {/* ── HEADER ── */}
-      <header
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-          background: `${c.bg}e6`,
-          backdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${c.border}40`,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 32px",
-            height: 64,
-          }}
-        >
-          <a
-            href="/saas-ex"
-            style={{
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontWeight: 800,
-                fontSize: 20,
-                color: c.text,
-                letterSpacing: "-0.02em",
-              }}
-            >
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-pnex-border/25 bg-pnex-bg/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-4 sm:h-16 sm:px-8">
+          <a href="/" className="flex items-center gap-2 no-underline">
+            <span className="font-mono text-lg font-extrabold tracking-tight text-pnex-text sm:text-xl">
               pnex
             </span>
-            <span
-              style={{
-                fontSize: 10,
-                color: c.textDim,
-                border: `1px solid ${c.border}`,
-                borderRadius: 4,
-                padding: "2px 6px",
-                fontFamily: "var(--font-geist-mono), monospace",
-              }}
-            >
+            <span className="rounded border border-pnex-border px-1.5 py-0.5 font-mono text-[9px] text-pnex-text-dim sm:text-[10px]">
               v0.1
             </span>
           </a>
 
-          <nav style={{ display: "flex", alignItems: "center", gap: 32 }}>
-            <NavLink href="#features">Features</NavLink>
-            <NavLink href="#use-cases">Use Cases</NavLink>
-            <NavLink href="#get-started">Get Started</NavLink>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 md:flex lg:gap-8">
+            <a href="#features" className="text-sm font-medium text-pnex-text-muted transition-colors hover:text-pnex-accent">
+              Features
+            </a>
+            <a href="#use-cases" className="text-sm font-medium text-pnex-text-muted transition-colors hover:text-pnex-accent">
+              Use Cases
+            </a>
+            <a href="#get-started" className="text-sm font-medium text-pnex-text-muted transition-colors hover:text-pnex-accent">
+              Get Started
+            </a>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "8px 20px",
-                borderRadius: 8,
-                background: c.accent,
-                color: c.bg,
-                fontSize: 13,
-                fontWeight: 700,
-                textDecoration: "none",
-                transition: "all 0.2s",
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = c.accentLight;
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = c.accent;
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
+              className="inline-flex items-center gap-2 rounded-lg bg-pnex-accent px-4 py-2 text-[13px] font-bold text-pnex-bg transition-all hover:-translate-y-0.5 hover:bg-pnex-accent-light"
             >
               ★ Star on GitHub
             </a>
           </nav>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex items-center justify-center text-pnex-text-muted md:hidden"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
+          </button>
         </div>
+
+        {/* Mobile menu panel */}
+        {mobileMenuOpen && (
+          <div className="border-t border-pnex-border/25 bg-pnex-bg/95 backdrop-blur-xl md:hidden">
+            <nav className="mx-auto flex max-w-[1200px] flex-col gap-1 px-4 py-4">
+              <a
+                href="#features"
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-pnex-text-muted transition-colors hover:bg-pnex-surface hover:text-pnex-accent"
+              >
+                Features
+              </a>
+              <a
+                href="#use-cases"
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-pnex-text-muted transition-colors hover:bg-pnex-surface hover:text-pnex-accent"
+              >
+                Use Cases
+              </a>
+              <a
+                href="#get-started"
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-pnex-text-muted transition-colors hover:bg-pnex-surface hover:text-pnex-accent"
+              >
+                Get Started
+              </a>
+              <div className="mt-2 border-t border-pnex-border/25 pt-3">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-lg bg-pnex-accent px-4 py-2.5 text-sm font-bold text-pnex-bg"
+                >
+                  ★ Star on GitHub
+                </a>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main>
         {/* ── HERO ── */}
-        <section
-          style={{
-            position: "relative",
-            paddingTop: 160,
-            paddingBottom: 100,
-            overflow: "hidden",
-          }}
-        >
+        <section className="relative overflow-hidden pt-28 pb-16 sm:pt-40 sm:pb-24">
           {/* Gradient orbs */}
-          <div
-            style={{
-              position: "absolute",
-              top: 80,
-              left: "20%",
-              width: 500,
-              height: 500,
-              borderRadius: "50%",
-              background: `radial-gradient(circle, ${c.accent}12, transparent 70%)`,
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: -100,
-              right: "10%",
-              width: 600,
-              height: 600,
-              borderRadius: "50%",
-              background: `radial-gradient(circle, ${c.accentDim}08, transparent 70%)`,
-              pointerEvents: "none",
-            }}
-          />
+          <div className="pointer-events-none absolute top-20 left-[20%] size-72 rounded-full bg-[radial-gradient(circle,_rgba(196,168,130,0.07),_transparent_70%)] sm:size-[500px]" />
+          <div className="pointer-events-none absolute -bottom-24 right-[10%] size-80 rounded-full bg-[radial-gradient(circle,_rgba(166,140,106,0.03),_transparent_70%)] sm:size-[600px]" />
 
-          <div
-            style={{
-              maxWidth: 1200,
-              margin: "0 auto",
-              padding: "0 32px",
-              textAlign: "center",
-            }}
-          >
-            <div className="pnex-fade-in">
+          <div className="relative mx-auto max-w-[1200px] px-4 text-center sm:px-8">
+            <div className="animate-[pnex-fade-in_0.6s_ease-out_both]">
               <Badge>Free & Open Source CLI Tool</Badge>
             </div>
 
-            {/* ASCII art */}
-            <pre
-              className="pnex-fade-in-delay-1"
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: "clamp(6px, 1.6vw, 14px)",
-                lineHeight: 1.2,
-                color: c.accent,
-                margin: "40px auto 32px",
-                letterSpacing: "0.02em",
-                textShadow: `0 0 30px ${c.accent}40`,
-                userSelect: "none",
-                overflow: "hidden",
-              }}
-            >
+            {/* ASCII art - Desktop */}
+            <pre className="mx-auto mt-8 mb-6 hidden select-none font-mono text-[clamp(6px,1.6vw,14px)] leading-[1.2] text-pnex-accent [text-shadow:0_0_30px_rgba(196,168,130,0.25)] sm:block sm:mt-10 sm:mb-8 animate-[pnex-fade-in_0.6s_ease-out_0.1s_both]">
               {asciiArt}
             </pre>
 
-            <p
-              className="pnex-fade-in-delay-2"
-              style={{
-                fontSize: "clamp(18px, 2.5vw, 24px)",
-                color: c.textMuted,
-                maxWidth: 600,
-                margin: "0 auto 16px",
-                lineHeight: 1.6,
-                fontWeight: 400,
-              }}
-            >
+            {/* ASCII art - Mobile */}
+            <pre className="mx-auto mt-6 mb-5 block select-none font-mono text-[8px] leading-[1.2] text-pnex-accent [text-shadow:0_0_20px_rgba(196,168,130,0.25)] sm:hidden animate-[pnex-fade-in_0.6s_ease-out_0.1s_both]">
+              {asciiArtMobile}
+            </pre>
+
+            <p className="mx-auto mb-3 max-w-[600px] text-base leading-relaxed text-pnex-text-muted sm:mb-4 sm:text-lg md:text-2xl animate-[pnex-fade-in_0.6s_ease-out_0.2s_both]">
               The CLI for AI agent communications,
-              <br />
+              <br className="hidden sm:block" />
+              <span className="sm:hidden">{" "}</span>
               integrations, and skill coordination.
             </p>
 
-            <p
-              className="pnex-fade-in-delay-3"
-              style={{
-                fontSize: 15,
-                color: c.textDim,
-                maxWidth: 500,
-                margin: "0 auto 48px",
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="mx-auto mb-8 max-w-[500px] text-sm leading-relaxed text-pnex-text-dim sm:mb-12 sm:text-[15px] animate-[pnex-fade-in_0.6s_ease-out_0.3s_both]">
               One tool to connect, route, and observe everything your AI agents
               say and do. Totally free.
             </p>
 
             {/* Install command */}
-            <div
-              className="pnex-fade-in-delay-3"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                background: c.surface,
-                border: `1px solid ${c.border}`,
-                borderRadius: 12,
-                padding: "14px 24px",
-                animation: "pnex-pulse-glow 3s ease-in-out infinite",
-              }}
-            >
-              <span style={{ color: c.codeGreen, fontSize: 14 }}>$</span>
-              <code
-                style={{
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: 14,
-                  color: c.text,
-                }}
-              >
+            <div className="inline-flex items-center gap-2 rounded-xl border border-pnex-border bg-pnex-surface px-3 py-3 shadow-[0_0_20px_rgba(196,168,130,0.1)] sm:gap-3 sm:px-6 sm:py-3.5 animate-[pnex-fade-in_0.6s_ease-out_0.3s_both]">
+              <span className="text-sm text-pnex-code-green">$</span>
+              <code className="font-mono text-xs text-pnex-text sm:text-sm">
                 npm install -g pnex
               </code>
               <button
                 onClick={() => copyToClipboard("npm install -g pnex", -1)}
-                style={{
-                  background: "none",
-                  border: `1px solid ${c.border}`,
-                  borderRadius: 6,
-                  padding: "4px 10px",
-                  color: copiedIdx === -1 ? c.codeGreen : c.textDim,
-                  fontSize: 11,
-                  cursor: "pointer",
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={(e) =>
-                  (e.currentTarget.style.borderColor = c.accent)
-                }
-                onMouseOut={(e) =>
-                  (e.currentTarget.style.borderColor = c.border)
-                }
+                className="ml-1 shrink-0 rounded-md border border-pnex-border px-2 py-1 font-mono text-[10px] text-pnex-text-dim transition-colors hover:border-pnex-accent hover:text-pnex-accent sm:text-[11px]"
               >
                 {copiedIdx === -1 ? "Copied!" : "Copy"}
               </button>
             </div>
 
             {/* Stats row */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 48,
-                marginTop: 64,
-                flexWrap: "wrap",
-              }}
-            >
+            <div className="mt-12 flex flex-wrap justify-center gap-8 sm:mt-16 sm:gap-12">
               {[
                 { value: "100%", label: "Free" },
                 { value: "MIT", label: "Licensed" },
                 { value: "0ms", label: "Vendor Lock-in" },
               ].map((stat) => (
-                <div key={stat.label} style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: c.accent,
-                      fontFamily: "var(--font-geist-mono), monospace",
-                    }}
-                  >
+                <div key={stat.label} className="text-center">
+                  <div className="font-mono text-xl font-extrabold text-pnex-accent sm:text-[28px]">
                     {stat.value}
                   </div>
-                  <div
-                    style={{
-                      fontSize: 12,
-                      color: c.textDim,
-                      marginTop: 4,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
+                  <div className="mt-1 text-[10px] uppercase tracking-widest text-pnex-text-dim sm:text-xs">
                     {stat.label}
                   </div>
                 </div>
@@ -553,66 +286,28 @@ export default function PnexPage() {
         </section>
 
         {/* ── DIVIDER ── */}
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 32px",
-          }}
-        >
-          <div
-            style={{
-              height: 1,
-              background: `linear-gradient(to right, transparent, ${c.border}, transparent)`,
-            }}
-          />
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
+          <div className="h-px bg-gradient-to-r from-transparent via-pnex-border to-transparent" />
         </div>
 
         {/* ── INTEGRATIONS ── */}
         <section
           id="features"
-          style={{
-            padding: "100px 32px",
-            maxWidth: 1200,
-            margin: "0 auto",
-          }}
+          className="mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24"
         >
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <div className="mb-10 text-center sm:mb-16">
             <Badge>Integrations</Badge>
-            <h2
-              style={{
-                fontSize: "clamp(28px, 3.5vw, 42px)",
-                fontWeight: 800,
-                color: c.text,
-                marginTop: 20,
-                marginBottom: 12,
-                lineHeight: 1.2,
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="mt-5 mb-3 text-2xl font-extrabold leading-tight tracking-tight text-pnex-text text-balance sm:text-3xl md:text-[42px]">
               Give life to your Agents
               <br />
-              <span style={{ color: c.accent }}>with powerful connections</span>
+              <span className="text-pnex-accent">with powerful connections</span>
             </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: c.textMuted,
-                maxWidth: 500,
-                margin: "0 auto",
-              }}
-            >
+            <p className="mx-auto max-w-[500px] text-sm text-pnex-text-muted sm:text-base">
               Connect your AI agents to the tools you use every day.
             </p>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {[
               {
                 category: "Chat Messages",
@@ -635,75 +330,24 @@ export default function PnexPage() {
             ].map((group) => (
               <div
                 key={group.category}
-                style={{
-                  background: c.surface,
-                  border: `1px solid ${c.border}`,
-                  borderRadius: 16,
-                  padding: 32,
-                  transition: "all 0.3s ease",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = c.accentDim;
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow = `0 12px 40px ${c.accent}15`;
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = c.border;
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+                className="group flex flex-col gap-3 rounded-2xl border border-pnex-border bg-pnex-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-pnex-accent-dim hover:shadow-[0_12px_40px_rgba(196,168,130,0.08)] sm:gap-4 sm:p-8"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    marginBottom: 8,
-                  }}
-                >
-                  <span
-                    className="material-icons"
-                    style={{ fontSize: 28, color: c.accent }}
-                  >
+                <div className="flex items-center gap-3 mb-1 sm:mb-2">
+                  <span className="material-icons text-2xl text-pnex-accent sm:text-[28px]">
                     {group.icon}
                   </span>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: c.text }}>
+                  <h3 className="text-base font-bold text-pnex-text sm:text-lg">
                     {group.category}
                   </h3>
                 </div>
-                <p
-                  style={{
-                    fontSize: 14,
-                    color: c.textMuted,
-                    lineHeight: 1.6,
-                    marginBottom: 16,
-                  }}
-                >
+                <p className="mb-2 text-[13px] leading-relaxed text-pnex-text-muted sm:mb-4 sm:text-sm">
                   {group.desc}
                 </p>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 8,
-                    marginTop: "auto",
-                  }}
-                >
+                <div className="mt-auto flex flex-wrap gap-1.5 sm:gap-2">
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      style={{
-                        fontSize: 12,
-                        color: c.textDim,
-                        background: c.bgAlt,
-                        border: `1px solid ${c.border}`,
-                        padding: "4px 10px",
-                        borderRadius: 6,
-                        fontFamily: "var(--font-geist-mono), monospace",
-                      }}
+                      className="rounded-md border border-pnex-border bg-pnex-bg-alt px-2 py-1 font-mono text-[10px] text-pnex-text-dim sm:px-2.5 sm:text-xs"
                     >
                       {item}
                     </span>
@@ -715,60 +359,17 @@ export default function PnexPage() {
         </section>
 
         {/* ── CORE CAPABILITIES ── */}
-        <section
-          style={{
-            padding: "0 32px 100px",
-            maxWidth: 1200,
-            margin: "0 auto",
-          }}
-        >
-          <div
-            style={{
-              background: `linear-gradient(145deg, ${c.surface} 0%, ${c.bg} 100%)`,
-              border: `1px solid ${c.border}`,
-              borderRadius: 24,
-              padding: "64px 48px",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                width: 300,
-                height: 300,
-                background: `radial-gradient(circle at top right, ${c.accent}10, transparent 70%)`,
-                pointerEvents: "none",
-              }}
-            />
+        <section className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-8 sm:pb-24">
+          <div className="relative overflow-hidden rounded-2xl border border-pnex-border bg-gradient-to-br from-pnex-surface to-pnex-bg p-5 sm:rounded-3xl sm:p-10 md:p-16">
+            <div className="pointer-events-none absolute top-0 right-0 size-48 bg-[radial-gradient(circle_at_top_right,_rgba(196,168,130,0.06),_transparent_70%)] sm:size-72" />
 
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <h3
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: c.text,
-                  marginBottom: 48,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                }}
-              >
-                <span className="material-icons" style={{ color: c.accent }}>
-                  terminal
-                </span>
+            <div className="relative z-[1]">
+              <h3 className="mb-8 flex items-center gap-3 text-xl font-extrabold text-pnex-text sm:mb-12 sm:text-[28px]">
+                <span className="material-icons text-pnex-accent">terminal</span>
                 Core Capabilities
               </h3>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                  gap: 48,
-                }}
-              >
+              <div className="grid gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
                 {[
                   {
                     title: "Skills Management",
@@ -789,64 +390,22 @@ export default function PnexPage() {
                     cmd: "pnex notify send --channel updates --msg 'Done'",
                   },
                 ].map((cap) => (
-                  <div key={cap.title} style={{ display: "flex", gap: 20 }}>
-                    <div
-                      style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 12,
-                        background: `${c.surfaceHover}`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        border: `1px solid ${c.border}`,
-                      }}
-                    >
-                      <span
-                        className="material-icons"
-                        style={{ color: c.textMuted, fontSize: 24 }}
-                      >
+                  <div key={cap.title} className="flex gap-4">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-pnex-border bg-pnex-surface-hover sm:size-12">
+                      <span className="material-icons text-lg text-pnex-text-muted sm:text-2xl">
                         {cap.icon}
                       </span>
                     </div>
-                    <div>
-                      <h4
-                        style={{
-                          fontSize: 18,
-                          fontWeight: 700,
-                          color: c.text,
-                          marginBottom: 8,
-                        }}
-                      >
+                    <div className="min-w-0">
+                      <h4 className="mb-1.5 text-base font-bold text-pnex-text sm:mb-2 sm:text-lg">
                         {cap.title}
                       </h4>
-                      <p
-                        style={{
-                          fontSize: 15,
-                          color: c.textMuted,
-                          lineHeight: 1.6,
-                          marginBottom: 16,
-                        }}
-                      >
+                      <p className="mb-3 text-[13px] leading-relaxed text-pnex-text-muted sm:mb-4 sm:text-[15px]">
                         {cap.desc}
                       </p>
-                      <div
-                        style={{
-                          background: c.bg,
-                          border: `1px solid ${c.border}`,
-                          borderRadius: 8,
-                          padding: "10px 14px",
-                          fontSize: 13,
-                          fontFamily: "var(--font-geist-mono), monospace",
-                          color: c.textDim,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                        }}
-                      >
-                        <span style={{ color: c.codeGreen }}>$</span>
-                        {cap.cmd}
+                      <div className="inline-flex items-center gap-2 overflow-x-auto rounded-lg border border-pnex-border bg-pnex-bg px-2.5 py-2 font-mono text-[11px] text-pnex-text-dim sm:px-3.5 sm:text-[13px]">
+                        <span className="text-pnex-code-green">$</span>
+                        <span className="whitespace-nowrap">{cap.cmd}</span>
                       </div>
                     </div>
                   </div>
@@ -857,100 +416,38 @@ export default function PnexPage() {
         </section>
 
         {/* ── DIVIDER ── */}
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 32px",
-          }}
-        >
-          <div
-            style={{
-              height: 1,
-              background: `linear-gradient(to right, transparent, ${c.border}, transparent)`,
-            }}
-          />
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
+          <div className="h-px bg-gradient-to-r from-transparent via-pnex-border to-transparent" />
         </div>
 
         {/* ── USE CASES ── */}
         <section
           id="use-cases"
-          style={{
-            padding: "100px 32px",
-            maxWidth: 1200,
-            margin: "0 auto",
-          }}
+          className="mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24"
         >
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <div className="mb-10 text-center sm:mb-16">
             <Badge>Use Cases</Badge>
-            <h2
-              style={{
-                fontSize: "clamp(28px, 3.5vw, 42px)",
-                fontWeight: 800,
-                color: c.text,
-                marginTop: 20,
-                marginBottom: 12,
-                lineHeight: 1.2,
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="mt-5 mb-3 text-2xl font-extrabold leading-tight tracking-tight text-pnex-text text-balance sm:text-3xl md:text-[42px]">
               One tool,{" "}
-              <span style={{ color: c.accent }}>infinite possibilities</span>
+              <span className="text-pnex-accent">infinite possibilities</span>
             </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: c.textMuted,
-                maxWidth: 500,
-                margin: "0 auto",
-              }}
-            >
+            <p className="mx-auto max-w-[500px] text-sm text-pnex-text-muted sm:text-base">
               From simple notifications to complex multi-step pipelines, pnex
               adapts to your workflow.
             </p>
           </div>
 
           {/* Tabs */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 8,
-              marginBottom: 32,
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="mb-6 flex flex-wrap justify-center gap-2 sm:mb-8 sm:gap-2">
             {useCases.map((uc, i) => (
               <button
                 key={uc.label}
                 onClick={() => setActiveUseCase(i)}
-                style={{
-                  padding: "10px 24px",
-                  borderRadius: 8,
-                  border: `1px solid ${
-                    activeUseCase === i ? c.accent : c.border
-                  }`,
-                  background:
-                    activeUseCase === i ? `${c.accent}18` : "transparent",
-                  color: activeUseCase === i ? c.accent : c.textMuted,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  fontFamily: "inherit",
-                }}
-                onMouseOver={(e) => {
-                  if (activeUseCase !== i) {
-                    e.currentTarget.style.borderColor = c.borderLight;
-                    e.currentTarget.style.color = c.text;
-                  }
-                }}
-                onMouseOut={(e) => {
-                  if (activeUseCase !== i) {
-                    e.currentTarget.style.borderColor = c.border;
-                    e.currentTarget.style.color = c.textMuted;
-                  }
-                }}
+                className={`rounded-lg px-3 py-2 text-xs font-semibold transition-all sm:px-5 sm:py-2.5 sm:text-[13px] ${
+                  activeUseCase === i
+                    ? "border border-pnex-accent bg-pnex-accent/10 text-pnex-accent"
+                    : "border border-pnex-border text-pnex-text-muted hover:border-pnex-border-light hover:text-pnex-text"
+                }`}
               >
                 {uc.label}
               </button>
@@ -958,130 +455,56 @@ export default function PnexPage() {
           </div>
 
           {/* Active use case content */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 32,
-              alignItems: "center",
-            }}
-          >
+          <div className="grid items-center gap-6 sm:gap-8 md:grid-cols-2">
             <TerminalWindow title="terminal">
               <div>
-                <span style={{ color: c.codeGreen }}>$</span>{" "}
-                <span style={{ color: c.text }}>
+                <span className="text-pnex-code-green">$</span>{" "}
+                <span className="text-pnex-text break-all sm:break-normal">
                   {useCases[activeUseCase].command}
                 </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 8,
-                    height: 16,
-                    background: c.accent,
-                    marginLeft: 4,
-                    verticalAlign: "middle",
-                    animation: "pnex-cursor-blink 1s step-end infinite",
-                  }}
-                />
+                <span className="ml-1 inline-block h-4 w-2 animate-[pnex-cursor-blink_1s_step-end_infinite] bg-pnex-accent align-middle" />
               </div>
-              <div style={{ marginTop: 12, color: c.textDim, fontSize: 12 }}>
-                <span style={{ color: c.codeGreen }}>✓</span> Connected
+              <div className="mt-3 text-[11px] text-pnex-text-dim sm:text-xs">
+                <span className="text-pnex-code-green">✓</span> Connected
                 &nbsp;&nbsp;
-                <span style={{ color: c.codeBlue }}>⟶</span> Ready
+                <span className="text-pnex-code-blue">⟶</span> Ready
               </div>
             </TerminalWindow>
 
-            <div style={{ padding: "0 16px" }}>
-              <h3
-                style={{
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: c.text,
-                  marginBottom: 12,
-                }}
-              >
+            <div className="px-0 sm:px-4">
+              <h3 className="mb-2 text-lg font-bold text-pnex-text sm:mb-3 sm:text-2xl">
                 {useCases[activeUseCase].label}
               </h3>
-              <p
-                style={{
-                  fontSize: 15,
-                  color: c.textMuted,
-                  lineHeight: 1.8,
-                  marginBottom: 24,
-                }}
-              >
+              <p className="mb-4 text-sm leading-relaxed text-pnex-text-muted sm:mb-6 sm:text-[15px] sm:leading-[1.8]">
                 {useCases[activeUseCase].description}
               </p>
               <a
                 href="#get-started"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  color: c.accent,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  transition: "gap 0.2s",
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.gap = "10px")}
-                onMouseOut={(e) => (e.currentTarget.style.gap = "6px")}
+                className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-pnex-accent transition-all hover:gap-2.5"
               >
-                Try it now <span>→</span>
+                Try it now <span className="transition-transform group-hover/link:translate-x-0.5">→</span>
               </a>
             </div>
           </div>
         </section>
 
         {/* ── DIVIDER ── */}
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 32px",
-          }}
-        >
-          <div
-            style={{
-              height: 1,
-              background: `linear-gradient(to right, transparent, ${c.border}, transparent)`,
-            }}
-          />
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
+          <div className="h-px bg-gradient-to-r from-transparent via-pnex-border to-transparent" />
         </div>
 
         {/* ── GET STARTED ── */}
         <section
           id="get-started"
-          style={{
-            padding: "100px 32px",
-            maxWidth: 900,
-            margin: "0 auto",
-          }}
+          className="mx-auto max-w-[900px] px-4 py-16 sm:px-8 sm:py-24"
         >
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <div className="mb-8 text-center sm:mb-12">
             <Badge>Get Started</Badge>
-            <h2
-              style={{
-                fontSize: "clamp(28px, 3.5vw, 42px)",
-                fontWeight: 800,
-                color: c.text,
-                marginTop: 20,
-                marginBottom: 12,
-                lineHeight: 1.2,
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="mt-5 mb-3 text-2xl font-extrabold leading-tight tracking-tight text-pnex-text text-balance sm:text-3xl md:text-[42px]">
               Up and running in{" "}
-              <span style={{ color: c.accent }}>4 commands</span>
+              <span className="text-pnex-accent">4 commands</span>
             </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: c.textMuted,
-                maxWidth: 440,
-                margin: "0 auto",
-              }}
-            >
+            <p className="mx-auto max-w-[440px] text-sm text-pnex-text-muted sm:text-base">
               No accounts, no API keys, no setup wizards. Just install and go.
             </p>
           </div>
@@ -1090,42 +513,22 @@ export default function PnexPage() {
             {installSteps.map((step, i) => (
               <div
                 key={i}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "6px 0",
-                }}
+                className="flex items-center justify-between gap-3 py-1.5"
               >
-                <div>
-                  <span style={{ color: c.textDim, fontSize: 12 }}>
+                <div className="min-w-0">
+                  <span className="text-[11px] text-pnex-text-dim sm:text-xs">
                     {step.comment}
                   </span>
-                  <div style={{ marginTop: 2 }}>
-                    <span style={{ color: c.codeGreen }}>$</span>{" "}
-                    <span style={{ color: c.text }}>{step.cmd}</span>
+                  <div className="mt-0.5">
+                    <span className="text-pnex-code-green">$</span>{" "}
+                    <span className="break-all text-pnex-text sm:break-normal">{step.cmd}</span>
                   </div>
                 </div>
                 <button
                   onClick={() => copyToClipboard(step.cmd, i)}
-                  style={{
-                    background: "none",
-                    border: `1px solid ${c.border}`,
-                    borderRadius: 4,
-                    padding: "2px 8px",
-                    color: copiedIdx === i ? c.codeGreen : c.textDim,
-                    fontSize: 10,
-                    cursor: "pointer",
-                    fontFamily: "var(--font-geist-mono), monospace",
-                    transition: "all 0.2s",
-                    flexShrink: 0,
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.borderColor = c.accent)
-                  }
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.borderColor = c.border)
-                  }
+                  className={`shrink-0 rounded border border-pnex-border px-2 py-0.5 font-mono text-[10px] transition-colors hover:border-pnex-accent ${
+                    copiedIdx === i ? "text-pnex-code-green" : "text-pnex-text-dim"
+                  }`}
                 >
                   {copiedIdx === i ? "✓" : "copy"}
                 </button>
@@ -1135,88 +538,24 @@ export default function PnexPage() {
         </section>
 
         {/* ── CTA SECTION ── */}
-        <section
-          style={{
-            padding: "80px 32px",
-            textAlign: "center",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: `radial-gradient(ellipse at center, ${c.accent}08, transparent 70%)`,
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              maxWidth: 700,
-              margin: "0 auto",
-              position: "relative",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "clamp(24px, 3vw, 36px)",
-                fontWeight: 800,
-                color: c.text,
-                marginBottom: 16,
-                lineHeight: 1.3,
-                letterSpacing: "-0.02em",
-              }}
-            >
+        <section className="relative px-4 py-14 text-center sm:px-8 sm:py-20">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(196,168,130,0.03),_transparent_70%)]" />
+          <div className="relative mx-auto max-w-[700px]">
+            <h2 className="mb-4 text-xl font-extrabold leading-snug tracking-tight text-pnex-text text-balance sm:text-3xl md:text-4xl">
               Ready to supercharge your
               <br />
-              <span style={{ color: c.accent }}>agent communications?</span>
+              <span className="text-pnex-accent">agent communications?</span>
             </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: c.textMuted,
-                marginBottom: 40,
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="mb-8 text-sm leading-relaxed text-pnex-text-muted sm:mb-10 sm:text-base">
               Join the growing community of developers building the next
               generation of AI agent infrastructure.
             </p>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 16,
-                flexWrap: "wrap",
-              }}
-            >
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "14px 32px",
-                  borderRadius: 12,
-                  background: c.accent,
-                  color: c.bg,
-                  fontSize: 15,
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = c.accentLight;
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = `0 8px 30px ${c.accent}30`;
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = c.accent;
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-pnex-accent px-6 py-3.5 text-sm font-bold text-pnex-bg transition-all hover:-translate-y-0.5 hover:bg-pnex-accent-light hover:shadow-[0_8px_30px_rgba(196,168,130,0.2)] sm:px-8 sm:text-[15px]"
               >
                 Get Started — It&apos;s Free
               </a>
@@ -1224,28 +563,7 @@ export default function PnexPage() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "14px 32px",
-                  borderRadius: 12,
-                  background: "transparent",
-                  border: `1px solid ${c.border}`,
-                  color: c.textMuted,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = c.accent;
-                  e.currentTarget.style.color = c.accent;
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = c.border;
-                  e.currentTarget.style.color = c.textMuted;
-                }}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-pnex-border px-6 py-3.5 text-sm font-semibold text-pnex-text-muted transition-all hover:border-pnex-accent hover:text-pnex-accent sm:px-8 sm:text-[15px]"
               >
                 View Documentation
               </a>
@@ -1255,65 +573,23 @@ export default function PnexPage() {
       </main>
 
       {/* ── FOOTER ── */}
-      <footer
-        style={{
-          borderTop: `1px solid ${c.border}`,
-          padding: "60px 32px 40px",
-          background: c.bgAlt,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr 1fr 1fr",
-            gap: 48,
-          }}
-        >
+      <footer className="border-t border-pnex-border bg-pnex-bg-alt px-4 pt-12 pb-8 sm:px-8 sm:pt-16 sm:pb-10">
+        <div className="mx-auto grid max-w-[1200px] gap-8 sm:gap-12 md:grid-cols-4">
           {/* Brand */}
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontWeight: 800,
-                fontSize: 20,
-                color: c.text,
-                marginBottom: 12,
-              }}
-            >
+          <div className="md:col-span-1">
+            <div className="mb-3 font-mono text-xl font-extrabold text-pnex-text">
               pnex
             </div>
-            <p
-              style={{
-                fontSize: 13,
-                color: c.textDim,
-                lineHeight: 1.7,
-                maxWidth: 280,
-              }}
-            >
+            <p className="max-w-[280px] text-[13px] leading-relaxed text-pnex-text-dim">
               The open-source CLI for AI agent communications, integrations, and
               skill coordination. Free forever.
             </p>
-            <div
-              style={{
-                display: "flex",
-                gap: 16,
-                marginTop: 20,
-              }}
-            >
+            <div className="mt-4 flex gap-4">
               {["GitHub", "Discord", "Twitter"].map((social) => (
                 <a
                   key={social}
                   href="#"
-                  style={{
-                    fontSize: 12,
-                    color: c.textDim,
-                    textDecoration: "none",
-                    transition: "color 0.2s",
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.color = c.accent)}
-                  onMouseOut={(e) => (e.currentTarget.style.color = c.textDim)}
+                  className="text-xs text-pnex-text-dim transition-colors hover:text-pnex-accent"
                 >
                   {social}
                 </a>
@@ -1337,37 +613,15 @@ export default function PnexPage() {
             },
           ].map((col) => (
             <div key={col.title}>
-              <div
-                style={{
-                  fontSize: 12,
-                  fontWeight: 700,
-                  color: c.textMuted,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  marginBottom: 16,
-                }}
-              >
+              <div className="mb-3 text-xs font-bold uppercase tracking-widest text-pnex-text-muted sm:mb-4">
                 {col.title}
               </div>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
+              <div className="flex flex-col gap-2 sm:gap-2.5">
                 {col.links.map((link) => (
                   <a
                     key={link}
                     href="#"
-                    style={{
-                      fontSize: 13,
-                      color: c.textDim,
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                    onMouseOver={(e) =>
-                      (e.currentTarget.style.color = c.accent)
-                    }
-                    onMouseOut={(e) =>
-                      (e.currentTarget.style.color = c.textDim)
-                    }
+                    className="text-[13px] text-pnex-text-dim transition-colors hover:text-pnex-accent"
                   >
                     {link}
                   </a>
@@ -1378,29 +632,11 @@ export default function PnexPage() {
         </div>
 
         {/* Bottom bar */}
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "40px auto 0",
-            paddingTop: 24,
-            borderTop: `1px solid ${c.border}`,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 16,
-          }}
-        >
-          <span style={{ fontSize: 12, color: c.textDim }}>
+        <div className="mx-auto mt-8 flex max-w-[1200px] flex-col items-center justify-between gap-3 border-t border-pnex-border pt-6 sm:mt-10 sm:flex-row">
+          <span className="text-xs text-pnex-text-dim">
             © 2026 pnex. MIT License. Free forever.
           </span>
-          <span
-            style={{
-              fontSize: 11,
-              color: c.textDim,
-              fontFamily: "var(--font-geist-mono), monospace",
-            }}
-          >
+          <span className="font-mono text-[11px] text-pnex-text-dim">
             built with ♥ for the agent ecosystem
           </span>
         </div>

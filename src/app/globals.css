@@ -1,27 +1,26 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: light;
-
-  --color-primary: #0e2433;
-  --color-accent: #38eddb;
-  --color-secondary: #0e2433;
-  --color-success: #10b981;
-  --color-danger: #ef4444;
-  --color-warning: #f59e0b;
-  --color-info: #3b82f6;
-  --color-light: #f8fafc;
-  --color-dark: #0f172a;
-
-  --color-background: #ffffff;
-  --color-surface: #f8fafc;
-  --color-surface-strong: #e2e8f0;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
-}
-
 @theme {
+  /* ─── PNEX Landing Page Colors ─── */
+  --color-pnex-bg: #1c1917;
+  --color-pnex-bg-alt: #231f1c;
+  --color-pnex-surface: #292524;
+  --color-pnex-surface-hover: #33302d;
+  --color-pnex-border: #44403c;
+  --color-pnex-border-light: #57534e;
+  --color-pnex-text: #e7e5e4;
+  --color-pnex-text-muted: #a8a29e;
+  --color-pnex-text-dim: #78716c;
+  --color-pnex-accent: #c4a882;
+  --color-pnex-accent-light: #d4c4aa;
+  --color-pnex-accent-dim: #a68c6a;
+  --color-pnex-highlight: #e8d5b7;
+  --color-pnex-code-green: #a3be8c;
+  --color-pnex-code-blue: #88c0d0;
+  --color-pnex-code-purple: #b48ead;
+  --color-pnex-code-yellow: #ebcb8b;
+
+  /* ─── Original Design System ─── */
   --color-primary: #0e2433;
   --color-accent: #38eddb;
   --color-secondary: #0e2433;
@@ -31,7 +30,6 @@
   --color-info: #3b82f6;
   --color-light: #f8fafc;
   --color-dark: #0f172a;
-
   --color-background: #ffffff;
   --color-surface: #f8fafc;
   --color-surface-strong: #e2e8f0;
@@ -40,23 +38,42 @@
   --color-border: #e2e8f0;
 }
 
-.example {
-  --color-primary: #0e2433;
-  --color-accent: #38eddb;
-  --color-secondary: #0e2433;
-  --color-success: #10b981;
-  --color-danger: #ef4444;
-  --color-warning: #f59e0b;
-  --color-info: #3b82f6;
-  --color-light: #f8fafc;
-  --color-dark: #0f172a;
+@keyframes pnex-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  --color-background: #ffffff;
-  --color-surface: #f8fafc;
-  --color-surface-strong: #e2e8f0;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
+@keyframes pnex-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(196, 168, 130, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(196, 168, 130, 0.2);
+  }
+}
+
+@keyframes pnex-cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #c4a882;
+  color: #1c1917;
 }
 
 body {
@@ -66,6 +83,4 @@ body {
     -apple-system,
     "Segoe UI",
     sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-text);
 }
